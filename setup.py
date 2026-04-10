@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="scrapely-python-client",
-    version="0.1.0",
+    version="0.1.1",
     author="Scrapely",
     author_email="support@scrapely.io",
     description="Official Python client for Scrapely.io API",
@@ -29,5 +29,5 @@ setuptools.setup(
     install_requires=[
         "httpx>=0.24.0",
     ],
-    keywords=["web scraping", "crawler", "captcha solver", "scrapely", "api client"],
+    keywords=["web scraping", "crawler", "captcha solver", "scrapely", "api client", "captcha"],
 )

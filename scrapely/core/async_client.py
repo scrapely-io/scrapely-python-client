@@ -1,6 +1,8 @@
 from scrapely.services.google import AsyncGoogle
 from scrapely.services.cloudflare import AsyncCloudflare
 from scrapely.services.crawler import AsyncCrawler
+from scrapely.services.datadome import AsyncDataDome
+
 from scrapely._version import __version__
 import httpx, asyncio, time
 
@@ -30,6 +32,7 @@ class AsyncScrapely:
         self._google = AsyncGoogle(self)
         self._cloudflare = AsyncCloudflare(self)
         self._crawler = AsyncCrawler(self)
+        self._datadome = AsyncDataDome(self)
         self.headers = {
             "X-API-Key": self.api_key,
             "User-Agent": f"python-scrapely-client-async/{__version__}",
@@ -104,3 +107,8 @@ class AsyncScrapely:
     def crawler(self):
         """Access web crawling and automation services."""
         return self._crawler
+
+    @property
+    def datadome(self):
+        """Access DataDome challenge solving services."""
+        return self._datadome

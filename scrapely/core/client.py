@@ -1,6 +1,7 @@
 from scrapely.services.google import Google
 from scrapely.services.cloudflare import Cloudflare
 from scrapely.services.crawler import Crawler
+from scrapely.services.datadome import DataDome
 from scrapely._version import __version__
 import httpx, time
 
@@ -30,6 +31,7 @@ class Scrapely:
         self._google = Google(self)
         self._cloudflare = Cloudflare(self)
         self._crawler = Crawler(self)
+        self._datadome = DataDome(self)
         self.client = httpx.Client(
             base_url=self.base_url,
             headers={
@@ -101,3 +103,7 @@ class Scrapely:
     def crawler(self):
         """Access web crawling and automation services."""
         return self._crawler
+    @property
+    def datadome(self):
+        """Access DataDome challenge solving services."""
+        return self._datadome
