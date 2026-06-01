@@ -2,6 +2,7 @@ from scrapely.services.google import Google
 from scrapely.services.cloudflare import Cloudflare
 from scrapely.services.crawler import Crawler
 from scrapely.services.datadome import DataDome
+from scrapely.services.mtcaptcha import MtCaptcha
 from scrapely._version import __version__
 import httpx, time
 
@@ -32,6 +33,7 @@ class Scrapely:
         self._cloudflare = Cloudflare(self)
         self._crawler = Crawler(self)
         self._datadome = DataDome(self)
+        self._mtcaptcha = MtCaptcha(self)
         self.client = httpx.Client(
             base_url=self.base_url,
             headers={
@@ -107,3 +109,7 @@ class Scrapely:
     def datadome(self):
         """Access DataDome challenge solving services."""
         return self._datadome
+    @property
+    def MtCaptcha(self):
+        """Access MtCaptcha challenge solving services."""
+        return self._mtcaptcha

@@ -5,3 +5,4 @@ class CaptchaType(str, Enum):
     RECAPTCHA_V2 = "RecaptchaV2"
     TURNSTILE = "Turnstile"
     DATADOME = "DataDome"
+    MTCAPTCHA = "MtCaptcha"

@@ -2,7 +2,7 @@ from scrapely.services.google import AsyncGoogle
 from scrapely.services.cloudflare import AsyncCloudflare
 from scrapely.services.crawler import AsyncCrawler
 from scrapely.services.datadome import AsyncDataDome
-
+from scrapely.services.mtcaptcha import AsyncMtCaptcha
 from scrapely._version import __version__
 import httpx, asyncio, time
 
@@ -33,6 +33,7 @@ class AsyncScrapely:
         self._cloudflare = AsyncCloudflare(self)
         self._crawler = AsyncCrawler(self)
         self._datadome = AsyncDataDome(self)
+        self._mtcaptcha = AsyncMtCaptcha(self)
         self.headers = {
             "X-API-Key": self.api_key,
             "User-Agent": f"python-scrapely-client-async/{__version__}",
@@ -112,3 +113,7 @@ class AsyncScrapely:
     def datadome(self):
         """Access DataDome challenge solving services."""
         return self._datadome
+    @property
+    def MtCaptcha(self):
+        """Access MtCaptcha challenge solving services."""
+        return self._mtcaptcha
