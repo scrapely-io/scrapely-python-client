@@ -3,8 +3,10 @@ from scrapely.services.cloudflare import Cloudflare
 from scrapely.services.crawler import Crawler
 from scrapely.services.datadome import DataDome
 from scrapely.services.mtcaptcha import MtCaptcha
+from scrapely.services.ocr import Ocr
 from scrapely._version import __version__
 import httpx, time
+
 
 class Scrapely:
     def __init__(
@@ -34,6 +36,7 @@ class Scrapely:
         self._crawler = Crawler(self)
         self._datadome = DataDome(self)
         self._mtcaptcha = MtCaptcha(self)
+        self._ocr = Ocr(self)
         self.client = httpx.Client(
             base_url=self.base_url,
             headers={
@@ -42,6 +45,7 @@ class Scrapely:
                 "Content-Type": "application/json"
             }
         )
+
     def _request(
         self,
         method: str,
@@ -65,6 +69,7 @@ class Scrapely:
             **kwargs
         )
         return response
+
     def _poll_task(
         self,
         task_id: str
@@ -93,23 +98,33 @@ class Scrapely:
             if time.time() - start_time > self.poll_timeout:
                 raise TimeoutError(f"Task {task_id} timed out after {self.poll_timeout} seconds")
             time.sleep(self.poll_interval)
+
     @property
     def google(self):
         """Access Google CAPTCHA solving services."""
         return self._google
+
     @property
     def cloudflare(self):
         """Access Cloudflare challenge solving services."""
         return self._cloudflare
+
     @property
     def crawler(self):
         """Access web crawling and automation services."""
         return self._crawler
+
     @property
     def datadome(self):
         """Access DataDome challenge solving services."""
         return self._datadome
+
     @property
     def MtCaptcha(self):
         """Access MtCaptcha challenge solving services."""
         return self._mtcaptcha
+
+    @property
+    def ocr(self):
+        """Access OCR text recognition services."""
+        return self._ocr

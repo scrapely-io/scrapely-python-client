@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from typing import Optional, List, Dict, Any
 
+
 @dataclass
 class CrawlerResult:
     """Result data from a crawler task"""
@@ -11,6 +12,7 @@ class CrawlerResult:
     cookies: Dict[str, Any] = field(default_factory=dict)
     metadata: Dict[str, Any] = field(default_factory=dict)
     instructions: List[Any] = field(default_factory=list)
+
 
 @dataclass
 class CrawlerResponse:
@@ -43,10 +45,12 @@ class CrawlerResponse:
             result=result
         )
 
+
 @dataclass
 class CaptchaResult:
     """Result data from a captcha task"""
     solution: str = ""
+
 
 @dataclass
 class CaptchaResponse:
@@ -63,6 +67,38 @@ class CaptchaResponse:
         result_data = data.get("result", {})
         result = CaptchaResult(
             solution=result_data.get("solution", "")
+        )
+        return cls(
+            success=data.get("success", False),
+            task_id=data.get("task_id", ""),
+            status=data.get("status", ""),
+            created_at=data.get("created_at", ""),
+            completed_at=data.get("completed_at"),
+            result=result
+        )
+
+
+@dataclass
+class OcrResult:
+    """Result data from an OCR task"""
+    text: str = ""
+
+
+@dataclass
+class OcrResponse:
+    """Response from an OCR task"""
+    success: bool
+    task_id: str
+    status: str
+    created_at: str
+    result: OcrResult
+    completed_at: Optional[str] = None
+
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> "OcrResponse":
+        result_data = data.get("result", {})
+        result = OcrResult(
+            text=result_data.get("solution", "")
         )
         return cls(
             success=data.get("success", False),
